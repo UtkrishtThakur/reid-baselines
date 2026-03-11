@@ -14,13 +14,20 @@ from src.engine.trainer import train_one_epoch
 from src.engine.evaluator import evaluate
 
 
-config = {
-    "dataset": "market1501",
-    "epochs": 5,
-    "P": 16,
-    "K": 4,
-    "lr": 3e-4
-}
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--dataset", type=str, default="market1501")
+parser.add_argument("--model", type=str, default="resnet50")
+parser.add_argument("--epochs", type=int, default=5)
+parser.add_argument("--P", type=int, default=16)
+parser.add_argument("--K", type=int, default=4)
+parser.add_argument("--lr", type=float, default=3e-4)
+
+args = parser.parse_args()
+
+config = vars(args)
+
 
 run_id = time.strftime("%Y%m%d_%H%M%S")
 run_dir = os.path.join("runs", run_id)
